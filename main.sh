@@ -21,5 +21,5 @@ do
     sk_upper=`expr $sk + $stride - 1`
     sk_upper=$(min $sk_upper $max_sk)
     echo LB=${sk_lower} UB=${sk_upper}
-    ~/Trino-Cli/target/trino-cli-1.0-executable.jar --server=localhost:9090 --catalog=hive -f ddl/createAllORCTables.hql -d DATELB=${sk} -d DATEUB=${sk} -d ORCDBNAME=hive_tpcds100g_partition_orc -d SOURCE=hive_tpcds100g_parquet
+    ~/Trino-Cli/target/trino-cli-1.0-executable.jar --server=localhost:9090 --catalog=hive -f ddl/createAllORCTables.hql -d DATELB=${sk_lower} -d DATEUB=${sk_upper} -d ORCDBNAME=hive_tpcds100g_partition_orc -d SOURCE=hive_tpcds100g_parquet
 done 
