@@ -23,7 +23,7 @@ select
     i.inv_quantity_on_hand,
     i.inv_date_sk
 from ${SOURCE}.inventory i
-where i.inv_date_sk = ${DATESK};
+where i.inv_date_sk >= ${DATELB} and i.inv_date_sk <= ${DATEUB};
 
 create table if not exists catalog_returns
 (
@@ -90,7 +90,7 @@ select
         cr.cr_net_loss,
         cr.cr_returned_date_sk 
 from ${SOURCE}.catalog_returns cr
-where cr.cr_returned_date_sk =  ${DATESK};
+where cr.cr_returned_date_sk >= ${DATELB} and cr.cr_returned_date_sk <= ${DATEUB};
 
 create table if not exists catalog_sales
 (
@@ -171,7 +171,7 @@ select
         cs.cs_net_profit,
         cs.cs_sold_date_sk
 from ${SOURCE}.catalog_sales cs
-where cs.cs_sold_date_sk = ${DATESK};
+where cs.cs_sold_date_sk >= ${DATELB} and cs.cs_sold_date_sk <= ${DATEUB};
 
 create table if not exists store_returns
 (
@@ -225,7 +225,7 @@ select
         sr.sr_net_loss,
         sr_returned_date_sk
 from ${SOURCE}.store_returns sr
-where sr.sr_returned_date_sk = ${DATESK};
+where sr.sr_returned_date_sk >= ${DATELB} and sr.sr_returned_date_sk <= ${DATEUB};
 
 create table if not exists store_sales
 (
@@ -284,7 +284,7 @@ select
         ss.ss_net_profit,
         ss.ss_sold_date_sk
 from ${SOURCE}.store_sales ss
-where ss.ss_sold_date_sk = ${DATESK};
+where ss.ss_sold_date_sk >= ${DATELB} and ss.ss_sold_date_sk <= ${DATEUB};
 
 create table if not exists web_returns
 (
@@ -346,7 +346,7 @@ select
         wr.wr_net_loss,
         wr.wr_returned_date_sk
 from ${SOURCE}.web_returns wr
-where wr.wr_returned_date_sk = ${DATESK};
+where wr.wr_returned_date_sk >= ${DATELB} and wr.wr_returned_date_sk <= ${DATEUB};
 
 create table if not exists web_sales
 (
@@ -427,7 +427,7 @@ select
         ws.ws_net_profit,
         ws.ws_sold_date_sk
 from ${SOURCE}.web_sales ws
-where ws.ws_sold_date_sk = ${DATESK};
+where ws.ws_sold_date_sk >= ${DATELB} and ws.ws_sold_date_sk <= ${DATEUB};
 
 create table if not exists call_center WITH ( format = 'ORC' )
 as select * from ${SOURCE}.call_center;
